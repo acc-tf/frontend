@@ -12,26 +12,25 @@ function Home() {
   const nameRoll = (event) => { setRoll(event.target.value) }
   const nameFile = (event) => { setFile(event.target.value) }
 
-  const handleSubmit=()=> { 
-    const postURL = "http://localhost:3001/api"
-    fetch(postURL, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            Name: name,
-            Email: email,
-            Roll: Roll,
-            image: File,
-            clockedIn:false,
-            dates:[]
-        })
-    })
-    .then(()=>{
-        alert('You have been added to the system!');
-    })
+  const dataSubmit=()=> { try{
+    fetch("http://localhost:4000/add", {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+          Name: name,
+          Email: email,
+          Roll: Roll,
+          image: File,
+      })
+  })
+  alert("Data Submitted Succesfully")
+  }
+    catch{
+      console.log("Not Working")
+    }
 }
 
   return (
@@ -40,7 +39,7 @@ function Home() {
       <div className='container'>
         <div className='row'>
           <div className='col'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={dataSubmit}>
 
               <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>

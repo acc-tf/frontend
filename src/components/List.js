@@ -6,7 +6,7 @@ function List() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api")
+      .get("http://localhost:4000/api")
       .then((response) => {
         setData(response.data);
         console.log(response.data);
