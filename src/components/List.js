@@ -26,7 +26,7 @@ function List() {
           <td style={{ fontWeight: "700" }}> {data.Name} </td>
           <td style={{ fontWeight: "700" }}> {data.Email} </td>
           <td style={{ fontWeight: "700" }}> {data.Roll} </td>
-          <td><img src={data.image} style={{ width: "80px" }} alt="student image"></img></td>
+          <td><img src={data.image} style={{ width: "80px" }} alt="student"></img></td>
         </tr>
       </>
     );
