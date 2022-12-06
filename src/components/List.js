@@ -16,7 +16,7 @@ function List() {
       });
   }, []);
 
-  
+
   const ListData = Array.from(data);
 
   const Studentdata = ListData.map((data) => {
@@ -34,8 +34,8 @@ function List() {
 
   return (
     <>
-    <br/>
-    <br/>
+      <br />
+      <br />
       <div className="container">
         <div className="col" style={{ marginLeft: "150px", marginRight: "150px" }}>
           <table class="table table-bordered table-striped">
@@ -44,7 +44,7 @@ function List() {
             </tbody>
           </table>
         </div>
-      </div>      
+      </div>
     </>
   );
 }

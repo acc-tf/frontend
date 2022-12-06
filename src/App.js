@@ -7,7 +7,7 @@ import Nav from "./components/Nav";
 
 
 function App() {
-  return ( 
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Nav />}>
@@ -16,7 +16,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-   );
+  );
 }
 
 export default App;

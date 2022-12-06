@@ -22,7 +22,22 @@ function Home() {
   const Editnameemail = (event) => { setEditemail(event.target.value) }
   const Editnameroll = (event) => { setEditroll(event.target.value) }
   const Editnamefile = (event) => { setEditfile(event.target.value) }
-
+  
+  
+//delete data function
+  const Deletedata = (id) => {
+    axios.delete('http://localhost:4000/'+id)
+    .then(() =>
+    alert('Data Deleted !!!')).then(() => 
+      axios.get("http://localhost:4000/api")
+    )
+    
+    
+    .catch((error) => {
+    console.log(error)
+    })
+    }
+   
 
   //editdatapopupfunction
   const editdatapopup = (id) => {
@@ -75,6 +90,7 @@ function Home() {
           <td style={{ fontWeight: "700" }}> {data.Email} </td>
           <td style={{ fontWeight: "700" }}> {data.Roll} </td>
           <td><img src={data.image} style={{ width: "80px" }} alt="student"></img></td>
+          <td><button type="button" class="btn btn-danger" onClick={() => Deletedata(data._id)}>Delete</button></td>
           <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -119,6 +135,7 @@ function Home() {
   //Submitdatafunction
   const dataSubmit = () => {
     try {
+      
       fetch("http://localhost:4000/add", {
         method: 'POST',
         headers: {
@@ -138,7 +155,6 @@ function Home() {
       console.log("Not Working")
     }
   }
-
 
 
   return (
@@ -164,7 +180,7 @@ function Home() {
               <br />
               <div class="form-group">
                 <label>Upload your image</label><br></br>
-                <input type="file" class="form-control-file" value={File} onChange={nameFile} />
+                <input type="file" class="form-control-file" id="path" value={File} onChange={nameFile} />
               </div>
               <br />
               <button type="submit" class="btn btn-primary">Submit</button> <br />
