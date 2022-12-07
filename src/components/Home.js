@@ -22,7 +22,7 @@ function Home() {
   const Editnameemail = (event) => { setEditemail(event.target.value) }
   const Editnameroll = (event) => { setEditroll(event.target.value) }
   const Editnamefile = (event) => { setEditfile(event.target.value) }
-  const [data, setData] = useState({});
+ 
   const [id, setID] = useState();
   
   //delete data function
@@ -62,17 +62,17 @@ function Home() {
 
 
   //fetchdata
+  const [data, setData] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:4000/api")
       .then((response) => {
         setData(response.data);
-        console.log(data)
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [data]);
+  }, []);
 
 
   //showlistui
