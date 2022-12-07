@@ -23,8 +23,7 @@ function Home() {
   const Editnameroll = (event) => { setEditroll(event.target.value) }
   const Editnamefile = (event) => { setEditfile(event.target.value) }
   const [data, setData] = useState({});
-
-
+  const [id, setID] = useState();
   
   //delete data function
     const Deletedata = (id) => {
@@ -37,11 +36,9 @@ function Home() {
     
     }
 
-
   //editdatapopupfunction
   const editdatapopup = (index) => {
     try {
-
       fetch('http://localhost:4000/' + index, {
         method: 'PUT',
         headers: {
@@ -65,7 +62,6 @@ function Home() {
 
 
   //fetchdata
-
   useEffect(() => {
     axios
       .get("http://localhost:4000/api")
@@ -76,7 +72,7 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [data]);
 
 
   //showlistui
@@ -85,13 +81,13 @@ function Home() {
     return (
       <>
         <tr>
-          <td style={{ fontWeight: "700" }}> {data._id} </td>
+         
           <td style={{ fontWeight: "700" }}> {data.Name} </td>
           <td style={{ fontWeight: "700" }}> {data.Email} </td>
           <td style={{ fontWeight: "700" }}> {data.Roll} </td>
           <td><img src={data.image} style={{ width: "80px" }} alt="student"></img></td>
           <td><button type="button" class="btn btn-danger" onClick={() => Deletedata(data._id)}>Delete</button></td>
-          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>setID(data._id)}>Edit</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -100,10 +96,10 @@ function Home() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form onSubmit={() => editdatapopup(data._id)}>
+                    <form onSubmit={() => editdatapopup(id)}>
 
                       <div class="form-group">
-                        <label>{data._id}</label>
+                        <label>Name</label>
                         <input type="text" class="form-control" value={editname} onChange={Editnameupdate} />
                       </div>
                       <div class="form-group">
