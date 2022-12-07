@@ -22,28 +22,27 @@ function Home() {
   const Editnameemail = (event) => { setEditemail(event.target.value) }
   const Editnameroll = (event) => { setEditroll(event.target.value) }
   const Editnamefile = (event) => { setEditfile(event.target.value) }
+  const [data, setData] = useState({});
+
+
   
-  
-//delete data function
-  const Deletedata = (id) => {
-    axios.delete('http://localhost:4000/'+id)
-    .then(() =>
-    alert('Data Deleted !!!')).then(() => 
-      axios.get("http://localhost:4000/api")
-    )
+  //delete data function
+    const Deletedata = (id) => {
+      axios.delete('http://localhost:4000/' + id)
+        .then(() =>
+        window.location.reload())
+        .catch((error) => {
+          console.log(error)
+        })
     
-    
-    .catch((error) => {
-    console.log(error)
-    })
     }
-   
+
 
   //editdatapopupfunction
-  const editdatapopup = (id) => {
+  const editdatapopup = (index) => {
     try {
-      
-      fetch('http://localhost:4000/'+id, {
+
+      fetch('http://localhost:4000/' + index, {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
@@ -56,7 +55,7 @@ function Home() {
           image: editfile,
         })
       })
-     console.log('http://localhost:4000/'+id)
+      console.log('http://localhost:4000/' + index)
       alert("Data Edited Succesfully")
     }
     catch {
@@ -66,12 +65,13 @@ function Home() {
 
 
   //fetchdata
-  const [data, setData] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/api")
       .then((response) => {
         setData(response.data);
+        console.log(data)
       })
       .catch((err) => {
         console.log(err);
@@ -79,13 +79,13 @@ function Home() {
   }, []);
 
 
-  //showlist
+  //showlistui
   const ListData = Array.from(data);
-  const Studentdata = ListData.map((data) => {
+  const Studentdata = ListData.map((data, index) => {
     return (
       <>
         <tr>
-        <td style={{ fontWeight: "700" }}> {data._id} </td>
+          <td style={{ fontWeight: "700" }}> {data._id} </td>
           <td style={{ fontWeight: "700" }}> {data.Name} </td>
           <td style={{ fontWeight: "700" }}> {data.Email} </td>
           <td style={{ fontWeight: "700" }}> {data.Roll} </td>
@@ -123,7 +123,7 @@ function Home() {
                       <button type="submit" class="btn btn-primary">Submit</button> <br />
                     </form>
                   </div>
-                 
+
                 </div>
               </div>
             </div></td>
@@ -135,7 +135,7 @@ function Home() {
   //Submitdatafunction
   const dataSubmit = () => {
     try {
-      
+
       fetch("http://localhost:4000/add", {
         method: 'POST',
         headers: {
